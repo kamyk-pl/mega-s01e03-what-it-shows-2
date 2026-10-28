@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 split: two problems, not one'
 owner: kamyk-pl
-status: proposed
+status: closed
 reviewed: 2026-10-28
 signature: v1.eyJzdWIiOiI0OTY1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxOTkyMDAsImV4cCI6MTc5MzI4NTYwMH0.y00R-DukBqgDjAMo724Xec4CN_Z-qnoBt9-JoXP4i_o
 ---
@@ -27,6 +27,13 @@ Not one issue. Fixing the parser leaves the booking-v3 hint open.
 
 - `parser` → [#1](https://github.com/kamyk-pl/mega-s01e03-what-it-shows-2/issues/1)
 - `hint` → [#2](https://github.com/kamyk-pl/mega-s01e03-what-it-shows-2/issues/2): the row with no ticket of its own.
+
+## Outcome
+
+Engineering closed #4471 on 5 October:
+
+- `parser`: **fixed** (`fix(dates): parse dd/mm for eu locales`). #1 closed as done.
+- `hint`: **won't fix**: the booking-v3 form is retired. #2 closed as not planned.
 
 ## The two problems
 
