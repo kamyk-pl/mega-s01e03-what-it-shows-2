@@ -1,0 +1,48 @@
+---
+layout: runbook
+title: '#4471 split: two problems, not one'
+owner: kamyk-pl
+status: proposed
+reviewed: 2026-10-28
+signature: v1.eyJzdWIiOiI0OTY1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxOTkyMDAsImV4cCI6MTc5MzI4NTYwMH0.y00R-DukBqgDjAMo724Xec4CN_Z-qnoBt9-JoXP4i_o
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) says one issue, one fix queued. Its own table shows two causes, and
+only one of them has a ticket. Each has its own ticket now, and the fix queued for #4471 closes
+only the first.
+
+<Callout>
+Not one issue. Fixing the parser leaves the booking-v3 hint open.
+</Callout>
+
+## The split, as the desk counts it
+
+<CauseTable ticket={4471} />
+
+- `parser` → [#1](https://github.com/kamyk-pl/mega-s01e03-what-it-shows-2/issues/1)
+- `hint` → [#2](https://github.com/kamyk-pl/mega-s01e03-what-it-shows-2/issues/2): the row with no ticket of its own.
+
+## The two problems
+
+- **`parser`**: the shared parser reads every date month first. Our tenants write the day
+  first, so day and month swap: booked 7 April, invite for 4 July. Channels: app and email,
+  and the form on booking-v2. Fix: parse in the tenant's locale. The one-day moves in the
+  table's footnote are filed here by tenant; #1 notes them.
+- **`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field for tenants who
+  write the day first. People type what the hint says, the form reads it the tenant's way, so
+  the date swaps. The parser fix does not touch this path. Fix: the hint follows the tenant's
+  locale, as booking-v2's does.
+
+## Why they were merged
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line, and none of
+the subjects names a cause. Intake's tag guesses from the reporter's browser, not the tenant,
+so it does not split them either.
+
+<RenderStamp {signature} />
